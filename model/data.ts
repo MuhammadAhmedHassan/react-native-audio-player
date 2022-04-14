@@ -1,4 +1,6 @@
-export const songs = [
+import {Track} from 'react-native-track-player';
+
+export const songs: Track[] = [
   {
     title: 'Kontho',
     artist: 'Anupamtt Royuit',
