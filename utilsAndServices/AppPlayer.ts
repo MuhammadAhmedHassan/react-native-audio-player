@@ -10,7 +10,8 @@ class AppPlayer {
 
   static initializePlayer = async () => {
     try {
-      TrackPlayer.updateOptions({
+      await TrackPlayer.setupPlayer();
+      await TrackPlayer.updateOptions({
         stopWithApp: false, // false=> music continues in background even when app is closed
         // Media controls capabilities
         capabilities: [
@@ -18,6 +19,8 @@ class AppPlayer {
           Capability.Pause,
           Capability.Stop,
           Capability.SeekTo,
+          Capability.SkipToNext,
+          Capability.SkipToPrevious,
         ],
         // Capabilities that will show up when the notification is in the compact form on Android
         compactCapabilities: [
@@ -28,7 +31,7 @@ class AppPlayer {
         ],
       });
 
-      await TrackPlayer.setupPlayer();
+      // await TrackPlayer.setupPlayer();
     } catch (error) {
       console.log(error);
       // TODO: handle the error

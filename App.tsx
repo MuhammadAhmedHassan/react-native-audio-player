@@ -58,6 +58,10 @@ const App = () => {
   const [audioIndex, setAudioIndex] = useState(0);
   const [repeatMode, setRepeatMode] = useState<RepeatMode>(RepeatMode.Off);
 
+  const [trackArtwork, setTrackArtwork] = useState<string | number>('');
+  const [trackArtist, setTrackArtist] = useState('');
+  const [trackTitle, setTrackTitle] = useState('');
+
   useEffect(() => {
     AppPlayer.initializePlayer().then(() => {
       AppPlayer.addSongs();
@@ -83,6 +87,9 @@ const App = () => {
       const track = await AppPlayer.getTrack(event.nextTrack);
       if (track === null) return;
       const {title, artwork, artist} = track;
+      if (title) setTrackTitle(title);
+      if (artwork) setTrackArtwork(artwork);
+      if (artist) setTrackArtist(artist);
     }
   });
 
@@ -129,7 +136,8 @@ const App = () => {
         style={{width, justifyContent: 'center', alignItems: 'center'}}>
         <View style={styles.artworkWrapper}>
           <Image
-            source={item.url as ImageSourcePropType}
+            // source={item.url as ImageSourcePropType}
+            source={trackArtwork as ImageSourcePropType}
             style={styles.artworkImg}
           />
         </View>
@@ -188,8 +196,14 @@ const App = () => {
         </View>
 
         <View>
-          <Text style={styles.title}>{audios[audioIndex].title}</Text>
-          <Text style={styles.artist}>{audios[audioIndex].artist}</Text>
+          <Text style={styles.title}>
+            {/* {audios[audioIndex].title} */}
+            {trackTitle}
+          </Text>
+          <Text style={styles.artist}>
+            {/* {audios[audioIndex].artist} */}
+            {trackArtist}
+          </Text>
         </View>
 
         <View>
